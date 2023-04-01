@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Phone list</title>
     <link rel = "stylesheet" href = "PhoneList.css"/>
-    <script src = "PhoneList.js"></script>
+    <script src = "PhoneList.js" defer></script>
   </head>
   <body>
     <h1>Phone list</h1>
@@ -14,7 +14,8 @@
       <input type = "text" name = "Brand" id = "Brand" required>
       <label for = "Model"> Model: </label>
       <input type = "text" name = "Model" id = "Model" required>
+      <button type = "button" class = "addButton">Add</button>
     </form>
-    <div class = "list"></div>
+    <div class = "listArea"></div>
   </body>
 </html>
