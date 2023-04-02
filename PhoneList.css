@@ -1,6 +1,10 @@
 li {
     list-style-image: url("star.png");
 }
+ 
+li.favourite {
+    list-style-image: url("yellow\ star.png");
+}
 
 li.selected {
     background-color: aqua;
