@@ -1,7 +1,7 @@
 const listArea = document.querySelector(".listArea");
 const addButton = document.querySelector(".addButton");
 const deleteButton = document.querySelector(".deleteButton");
-
+const addToCartButton = document.querySelector(".addToCart");
 
 const list = new Array();
 const brandList = new Array();
@@ -15,17 +15,20 @@ function add() {
         list.unshift(row);
         for (let i = 0; i < list.length; ++i) {
             list[i].onclick = function () {select(i)};
-            list[i].style.background = "transparent";
+            list[i].classList.remove("selected");
         }
         brandList.unshift(document.getElementById("Brand").value);
         modelList.unshift(document.getElementById("Model").value);
         listArea.prepend(row);
+    } else if (document.getElementById("Brand").value === "" || document.getElementById("Model").value === "") {
+        window.alert("One or more fields are empty!");
+    } else {
+        window.alert("One or more fields contain spaces!");
     }
 }
 
 function select(x) {
-    list[x].setAttribute("class", "selected");
-    list[x].style.background = "blue";
+    list[x].classList.add("selected");
 }
 
 function remove() {
@@ -35,6 +38,15 @@ function remove() {
     }
 }
 
+function addToCart() {
+    const selected = document.querySelectorAll(".selected");
+    for (let i = 0; i < selected.length; ++i) {
+        selected[i].classList.add("favourite");
+        selected[i].classList.remove("selected");
+    }
+}
+
 addButton.addEventListener("click", add);
 deleteButton.addEventListener("click", remove);
+addToCartButton.addEventListener("click", addToCart);
 
