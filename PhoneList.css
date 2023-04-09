@@ -9,3 +9,26 @@ li.favourite {
 li.selected {
     background-color: aqua;
 }
+
+li.invisible {
+    visibility: hidden;
+}
+
+button.delete, button.addToCart, button.filter, button.search, button.unfilter {
+    display: block;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+div.container {
+    display: flex;
+}
+
+div.listArea {
+    width: 24%;
+    margin-top: 10px;
+}
+
+form.filterForm {
+    visibility: hidden;
+}
