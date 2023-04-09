@@ -1,9 +1,13 @@
 const listArea = document.querySelector(".listArea");
-const addButton = document.querySelector(".addButton");
-const deleteButton = document.querySelector(".deleteButton");
+const addButton = document.querySelector(".add");
+const deleteButton = document.querySelector(".delete");
 const addToCartButton = document.querySelector(".addToCart");
+const filterButton = document.querySelector(".filter");
+const filterForm = document.querySelector(".filterForm");
+const unfilterButton = document.querySelector(".unfilter");
 
 const list = new Array();
+let shallowList = null;
 const brandList = new Array();
 const modelList = new Array();
  
@@ -19,7 +23,8 @@ function add() {
         }
         brandList.unshift(document.getElementById("Brand").value);
         modelList.unshift(document.getElementById("Model").value);
-        listArea.prepend(row);
+        shallowList = list.slice();
+        listArea.prepend(shallowList[0]);
     } else if (document.getElementById("Brand").value === "" || document.getElementById("Model").value === "") {
         window.alert("One or more fields are empty!");
     } else {
@@ -46,7 +51,36 @@ function addToCart() {
     }
 }
 
+function addfilterForm() {
+    filterForm.style.visibility = "visible";
+    const searchButton = document.querySelector(".search");
+    searchButton.onclick = function () {filter(document.getElementById("searchInput").value)};
+    unfilterButton.addEventListener("click", unfilter);
+}
+
+function filter(x) {
+    if (brandList.includes(x)) {
+        for (let i = 0; i < brandList.length; ++i) {
+            if (x != brandList[i]) {
+                shallowList[i].remove();
+            }
+        }
+    } else {
+        window.alert("The brand searched doesn't exist in the list");
+    }
+
+}
+
+function unfilter() {
+    shallowList = list.slice();
+    filterForm.style.visibility = "hidden";
+    for (let i = 0; i < shallowList.length; ++i) {
+        listArea.append(shallowList[i]);
+    }
+}
+
 addButton.addEventListener("click", add);
 deleteButton.addEventListener("click", remove);
 addToCartButton.addEventListener("click", addToCart);
+filterButton.addEventListener("click", addfilterForm);
 
