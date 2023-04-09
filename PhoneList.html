@@ -9,15 +9,25 @@
   </head>
   <body>
     <h1>Phone list</h1>
-    <form method = "get", class = "form">
+    <form method = "get">
       <label for = "Brand"> Brand: </label>
       <input type = "text" name = "Brand" id = "Brand" required>
       <label for = "Model"> Model: </label>
       <input type = "text" name = "Model" id = "Model" required>
-      <button type = "button" class = "addButton">Add</button>
+      <button type = "button" class = "add">Add</button>
     </form>
-      <button type = "button" class = "deleteButton">Delete</button>
-      <button type = "button" class = "addToCart">Add to Cart</button>
-    <div class = "listArea"></div>
+    <div class = container>
+      <div class = "listArea"></div>
+      <div class = "buttons">
+        <button type = "button" class = "delete">Delete</button>
+        <button type = "button" class = "addToCart">Add to Cart</button>
+        <button type = "button" class = "filter">Filter</button>
+        <form method = "get", class = "filterForm">
+          <button type = "button" class = "search">Search <br> Brand</button>
+          <input type = "text" id = "searchInput" required>
+          <button type = "button" class = "unfilter">Unfilter</button>  
+        </form>
+      </div>
+    </div>
   </body>
 </html>
