@@ -7,7 +7,6 @@ const filterForm = document.querySelector(".filterForm");
 const unfilterButton = document.querySelector(".unfilter");
 
 const list = new Array();
-let shallowList = null;
 const brandList = new Array();
 const modelList = new Array();
  
@@ -16,15 +15,14 @@ function add() {
     document.getElementById("Brand").value != "" && document.getElementById("Model").value != "") {
         const row = document.createElement("li");
         row.innerText = document.getElementById("Brand").value + "   " +  document.getElementById("Model").value;
+        row.addEventListener("click", select);
         list.unshift(row);
         for (let i = 0; i < list.length; ++i) {
-            list[i].onclick = function () {select(i)};
             list[i].classList.remove("selected");
         }
         brandList.unshift(document.getElementById("Brand").value);
         modelList.unshift(document.getElementById("Model").value);
-        shallowList = list.slice();
-        listArea.prepend(shallowList[0]);
+        listArea.prepend(row);
     } else if (document.getElementById("Brand").value === "" || document.getElementById("Model").value === "") {
         window.alert("One or more fields are empty!");
     } else {
@@ -32,19 +30,24 @@ function add() {
     }
 }
 
-function select(x) {
-    list[x].classList.add("selected");
+function select(e) {
+    e.target.classList.add("selected");
 }
 
 function remove() {
-    const selected = document.querySelectorAll(".selected");
-    for (let i = 0; i < selected.length; ++i) {
-        selected[i].remove();
+    for (let i = 0; i < list.length; ++i) {
+        if (list[i].classList.contains("selected")) {
+            list[i].remove();
+            list.splice(i, 1);
+            brandList.splice(i, 1);
+            modelList.splice(i, 1);
+            --i;
+        }
     }
 }
 
 function addToCart() {
-    const selected = document.querySelectorAll(".selected");
+    var selected = document.querySelectorAll(".selected");
     for (let i = 0; i < selected.length; ++i) {
         selected[i].classList.add("favourite");
         selected[i].classList.remove("selected");
@@ -62,7 +65,7 @@ function filter(x) {
     if (brandList.includes(x)) {
         for (let i = 0; i < brandList.length; ++i) {
             if (x != brandList[i]) {
-                shallowList[i].remove();
+                list[i].remove();
             }
         }
     } else {
@@ -72,10 +75,10 @@ function filter(x) {
 }
 
 function unfilter() {
-    shallowList = list.slice();
     filterForm.style.visibility = "hidden";
-    for (let i = 0; i < shallowList.length; ++i) {
-        listArea.append(shallowList[i]);
+    for (let i = 0; i < list.length; ++i) {
+        listArea.append(list[i]);
+        list[i].classList.remove("selected");
     }
 }
 
